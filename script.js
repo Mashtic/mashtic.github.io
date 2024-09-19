@@ -6,47 +6,48 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Ejemplo de añadir un lote (polígono) con GeoJSON
-var lote1 = {
-    "type": "Feature",
-    "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-            [
-                [-84.0910, 9.9282],
-                [-84.0915, 9.9285],
-                [-84.0918, 9.9281],
-                [-84.0910, 9.9282]
-            ]
-        ]
-    },
-    "properties": {
-        "name": "Lote 1"
-    }
-};
+fetch('GeoJson/casas.geojson')
+    .then(response => response.json())
+    .then(data => {
+        // Agregar el contenido del GeoJSON al mapa
+        L.geoJSON(data, {
 
-// Añadir el lote al mapa como un polígono
-L.geoJSON(lote1).addTo(map).bindPopup("Lote 1");
+            style: function (feature) {
+                return {
+                    color: "#dc7633",   // Border color
+                    weight: 2,          // Border thickness
+                    opacity: 1,
+                    fillColor: "#edbb99", // Fill color for polygons
+                    fillOpacity: 0.1     // Opacity of the fill
+                };
+            }
+        }).addTo(map);
+    });
 
-// Ejemplo de agregar un marcador para infraestructura (Escuela)
-var schoolIcon = L.icon({
-    iconUrl: 'https://example.com/school-icon.png', // URL del icono personalizado
-    iconSize: [32, 32], // Tamaño del icono
-    iconAnchor: [16, 32], // Punto de anclaje del icono
-    popupAnchor: [0, -30] // Punto donde se abre el popup
-});
+    fetch('GeoJson/parques.geojson')
+    .then(response => response.json())
+    .then(data => {
+        // Agregar el contenido del GeoJSON al mapa
+        L.geoJSON(data, {
 
-// Añadir un marcador con el icono personalizado
-L.marker([9.9285, -84.0910], {icon: schoolIcon}).addTo(map)
-    .bindPopup("Escuela primaria");
+            style: function (feature) {
+                return {
+                    color: "#28b463",   // Border color
+                    weight: 2,          // Border thickness
+                    opacity: 1,
+                    fillColor: "#abebc6", // Fill color for polygons
+                    fillOpacity: 0.1     // Opacity of the fill
+                };
+            }
+        }).addTo(map);
+    });
 
-// Ejemplo de añadir un río (línea)
-var rio = [
-    [9.9275, -84.0920],
-    [9.9280, -84.0930],
-    [9.9285, -84.0940]
-];
 
-// Añadir el río como una línea poligonal
-L.polyline(rio, {color: 'blue'}).addTo(map).bindPopup("Río");
+    fetch('GeoJson/postes.geojson')
+    .then(response => response.json())
+    .then(data => {
+        // Agregar el contenido del GeoJSON al mapa
+        L.geoJSON(data).addTo(map);
+    });
+
 
