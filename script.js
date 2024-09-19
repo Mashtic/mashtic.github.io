@@ -6,12 +6,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-fetch('GeoJson/casas.geojson')
+    fetch('GeoJson/casas.geojson')
     .then(response => response.json())
     .then(data => {
         // Agregar el contenido del GeoJSON al mapa
         L.geoJSON(data, {
-
+        
             style: function (feature) {
                 return {
                     color: "#dc7633",   // Border color
@@ -27,7 +27,7 @@ fetch('GeoJson/casas.geojson')
     fetch('GeoJson/parques.geojson')
     .then(response => response.json())
     .then(data => {
-        // Agregar el contenido del GeoJSON al mapa
+            // Agregar el contenido del GeoJSON al mapa
         L.geoJSON(data, {
 
             style: function (feature) {
