@@ -20,14 +20,20 @@
         attribution: 'Map data © OpenStreetMap contributors'
     }).addTo(map);
 
-        // Se carga el archivo GeoJson 
+
+
     fetch('alajuela.geojson')
         .then(response => response.json())
         .then(data => {
-            // Agrega los datos GeoJSON al mapa
-            L.geoJSON(data).addTo(map);
+            L.geoJSON(data, {
+                style: function (feature) {
+                    return { color: 'grey' }; // Change 'blue' to any color you prefer
+                }
+            }).addTo(map);
         })
         .catch(err => console.error('Error al cargar el GeoJSON:', err));
+            
+        // Se carga el archivo GeoJson
     </script>
 </body>
 </html>
